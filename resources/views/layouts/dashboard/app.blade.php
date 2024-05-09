@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{{ asset('dashboard_files/css/ionicons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('dashboard_files/css/skin-blue.min.css') }}">
 
-    @if (app()->getLocale() == 'ar')
+    @if (app()->getLocale() === 'ar')
         <link rel="stylesheet" href="{{ asset('dashboard_files/css/font-awesome-rtl.min.css') }}">
         <link rel="stylesheet" href="{{ asset('dashboard_files/css/AdminLTE-rtl.min.css') }}">
         <link href="https://fonts.googleapis.com/css?family=Cairo:400,700" rel="stylesheet">
@@ -34,35 +34,6 @@
             margin-right: 5px;
         }
 
-        .loader {
-            border: 5px solid #f3f3f3;
-            border-radius: 50%;
-            border-top: 5px solid #367FA9;
-            width: 60px;
-            height: 60px;
-            -webkit-animation: spin 1s linear infinite; /* Safari */
-            animation: spin 1s linear infinite;
-        }
-
-        /* Safari */
-        @-webkit-keyframes spin {
-            0% {
-                -webkit-transform: rotate(0deg);
-            }
-            100% {
-                -webkit-transform: rotate(360deg);
-            }
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
     </style>
     {{--<!-- jQuery 3 -->--}}
     <script src="{{ asset('dashboard_files/js/jquery.min.js') }}"></script>
@@ -71,15 +42,12 @@
     <link rel="stylesheet" href="{{ asset('dashboard_files/plugins/noty/noty.css') }}">
     <script src="{{ asset('dashboard_files/plugins/noty/noty.min.js') }}"></script>
 
-    {{--morris--}}
-    <link rel="stylesheet" href="{{ asset('dashboard_files/plugins/morris/morris.css') }}">
-
     {{--<!-- iCheck -->--}}
     <link rel="stylesheet" href="{{ asset('dashboard_files/plugins/icheck/all.css') }}">
 
     {{--html in  ie--}}
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  {{--  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>--}}
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -89,7 +57,7 @@
     <header class="main-header">
 
         {{--<!-- Logo -->--}}
-        <a href="{{ asset('dashboard') }}/index2.html" class="logo">
+        <a href="{{ asset('dashboard_files') }}/index2.html" class="logo">
             {{--<!-- mini logo for sidebar mini 50x50 pixels -->--}}
             <span class="logo-mini"><b>A</b>LT</span>
             <span class="logo-lg"><b>Admin</b>LTE</span>
@@ -171,13 +139,15 @@
                             <li>
                                 {{--<!-- inner menu: contains the actual data -->--}}
                                 <ul class="menu">
+
                                     @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
                                         <li>
-                                            <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
-                                                {{ $properties['native'] }}
-                                            </a>
+                                        <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                        {{ $properties['native'] }}
+                                        </a>
                                         </li>
                                     @endforeach
+
                                 </ul>
                             </li>
                         </ul>
@@ -188,7 +158,11 @@
 
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="{{ asset('dashboard_files/img/user2-160x160.jpg') }}" class="user-image" alt="User Image">
-                            <span class="hidden-xs">{{ auth()->user()->first_name }} {{ auth()->user()->last_name }}</span>
+                            <span class="hidden-xs">
+                                @if(auth()->check())
+                                    {{ auth()->user()->first_name . ' ' . auth()->user()->last_name }}
+                                @endif
+                                </span>
                         </a>
                         <ul class="dropdown-menu">
 
@@ -197,7 +171,11 @@
                                 <img src="{{ asset('dashboard_files/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
 
                                 <p>
-                                    {{ auth()->user()->first_name }} {{ auth()->user()->last_name }}
+                                    @if(auth()->check())
+                                    {{ auth()->user()->first_name . ' ' . auth()->user()->last_name }}
+                                    <br>
+                                    {{ auth()->user()->email }}
+                                    @endif
                                     <small>Member since 2 days</small>
                                 </p>
                             </li>
@@ -207,7 +185,7 @@
 
 
                                 <a href="{{ route('logout') }}" class="btn btn-default btn-flat" onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">@lang('site.logout')</a>
+                                                 document.getElementById('logout-form').submit();">{{__('Logout')}}</a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                     @csrf
@@ -251,26 +229,9 @@
 {{--<!-- AdminLTE App -->--}}
 <script src="{{ asset('dashboard_files/js/adminlte.min.js') }}"></script>
 
-{{--ckeditor standard--}}
-<script src="{{ asset('dashboard_files/plugins/ckeditor/ckeditor.js') }}"></script>
-
-{{--jquery number--}}
-<script src="{{ asset('dashboard_files/js/jquery.number.min.js') }}"></script>
-
-{{--print this--}}
-<script src="{{ asset('dashboard_files/js/printThis.js') }}"></script>
-
-{{--morris --}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-<script src="{{ asset('dashboard_files/plugins/morris/morris.min.js') }}"></script>
-
-{{--custom js--}}
-<script src="{{ asset('dashboard_files/js/custom/image_preview.js') }}"></script>
-<script src="{{ asset('dashboard_files/js/custom/order.js') }}"></script>
 
 <script>
     $(document).ready(function () {
-
         $('.sidebar-menu').tree();
 
         //icheck
@@ -279,7 +240,6 @@
             radioClass: 'iradio_minimal-blue'
         });
 
-        //delete
         $('.delete').click(function (e) {
 
             var that = $(this)
@@ -287,15 +247,15 @@
             e.preventDefault();
 
             var n = new Noty({
-                text: "@lang('site.confirm_delete')",
+                text: "{{__('Confirm Delete')}}",
                 type: "warning",
                 killer: true,
                 buttons: [
-                    Noty.button("@lang('site.yes')", 'btn btn-success mr-2', function () {
+                    Noty.button('{{__('Yes')}}', 'btn btn-success mr-2', function () {
                         that.closest('form').submit();
                     }),
 
-                    Noty.button("@lang('site.no')", 'btn btn-primary mr-2', function () {
+                    Noty.button('{{__('No')}}', 'btn btn-primary mr-2', function () {
                         n.close();
                     })
                 ]
@@ -304,27 +264,7 @@
             n.show();
 
         });//end of delete
-
-        // // image preview
-        // $(".image").change(function () {
-        //
-        //     if (this.files && this.files[0]) {
-        //         var reader = new FileReader();
-        //
-        //         reader.onload = function (e) {
-        //             $('.image-preview').attr('src', e.target.result);
-        //         }
-        //
-        //         reader.readAsDataURL(this.files[0]);
-        //     }
-        //
-        // });
-
-        CKEDITOR.config.language =  "{{ app()->getLocale() }}";
-
-    });//end of ready
-
+    })
 </script>
-@stack('scripts')
 </body>
 </html>
