@@ -38,6 +38,9 @@
     "The last name field is required.": "الاسم الأخير مطلوب",
     "The email field is required.": "البريد الإلكتروني مطلوب",
     "The password field is required.": "كلمة المرور مطلوب",
+    "The email has already been taken.": "البريد الإلكتروني مستخدم من قبل",
+    "The image field must be an image.": "يجب أن يكون حقل الصورة صورة",
+    "The permissions field is required.": "حقل الأذونات مطلوب",
     "The password field confirmation does not match.": "كلمة المرور غير متطابقة",
     "Added Successfully": "تم الاضفه البينات  بنجاج",
     "Deleted Successfully": "تم حذف البينات  بنجاج",
@@ -47,6 +50,7 @@
     "Products": "المنتجات",
     "Yes": "نعم",
     "No": "لا",
+    "Image": "الصورة",
     "User deleted successfully": "تم حذف المستخدم"
 }
 

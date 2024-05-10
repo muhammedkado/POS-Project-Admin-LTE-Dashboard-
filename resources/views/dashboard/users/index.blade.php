@@ -42,6 +42,7 @@
                                 <th>{{__('First Name')}}</th>
                                 <th>{{__('Last Name')}}</th>
                                 <th>{{__('Email')}}</th>
+                                <th>{{__('Image')}}</th>
                                 <th>{{__('Action')}}</th>
                             </tr>
                             </thead>
@@ -53,6 +54,7 @@
                                     <td>{{$user->first_name}}</td>
                                     <td>{{$user->last_name}}</td>
                                     <td>{{$user->email}}</td>
+                                    <td><img src="{{$user->image_path}}" alt="not found" style="width: 100px" class="img-thumbnail"></td>
                                     <td>
                                         @if(auth()->user()->hasPermission('users_update'))
                                             <a href="{{ route('dashboard.users.edit', ['user' => $user->id]) }}" class="btn btn-info btn-sm"><li class="fa fa-edit mr-2"> </li>{{ __('Edit') }}</a>

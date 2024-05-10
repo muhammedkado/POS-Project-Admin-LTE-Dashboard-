@@ -23,8 +23,11 @@ class User extends Authenticatable implements LaratrustUser
         'first_name',
         'last_name',
         'email',
+        'image',
         'password',
     ];
+
+    protected $appends = ['image_path'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -45,18 +48,6 @@ class User extends Authenticatable implements LaratrustUser
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-
-/*    public function attachRole($roleName)
-    {
-        $role = Role::where('name', $roleName)->first();
-
-        if (!$role) {
-            // Handle case where role doesn't exist
-            return;
-        }
-
-        $this->roles()->attach($role);
-    }*/
 
     public function getFirstNameAttribute($value)
     {

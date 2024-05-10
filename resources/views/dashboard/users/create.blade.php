@@ -25,33 +25,42 @@
                 <!-- /.card-header -->
                 <!-- form start -->
                 @include('partials._errors')
-                <form action="{{route('dashboard.users.store')}}" method="POST">
+                <form action="{{route('dashboard.users.store')}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     {{@method_field('post')}}
                     <div class="box-body">
                         <div class="form-group">
                             <label for="exampleInputEmail1">{{__('First Name')}}</label>
-                            <input type="text" class="form-control" id="exampleInputEmail1" name="first_name" placeholder="{{__('First Name')}}" value="{{old('first_name')}}">
+                            <input type="text" class="form-control" name="first_name" placeholder="{{__('First Name')}}" value="{{old('first_name')}}">
                         </div>
 
                         <div class="form-group">
                             <label for="exampleInputEmail1">{{__('Last Name')}}</label>
-                            <input type="text" class="form-control" id="exampleInputEmail1" name="last_name" placeholder="{{__('Last Name')}}" value="{{old('last_name')}}">
+                            <input type="text" class="form-control" name="last_name" placeholder="{{__('Last Name')}}" value="{{old('last_name')}}">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">{{__('Image')}}</label>
+                            <input type="file" class="form-control image" id="image" name="image" placeholder="{{__('Image')}}">
+                        </div>
+
+                        <div class="form-group">
+                            <img src="{{asset('uploads/user_images/default.png')}}" alt="not found" style="width: 100px" class="img-thumbnail image-preview">
                         </div>
 
                         <div class="form-group">
                             <label for="exampleInputEmail1">{{__('Email Address')}}</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" name="email" placeholder="{{__('Email Address')}}" value="{{old('email')}}">
+                            <input type="email" class="form-control" name="email" placeholder="{{__('Email Address')}}" value="{{old('email')}}">
                         </div>
 
                         <div class="form-group">
                             <label for="exampleInputPassword1">{{__('Password')}}</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="{{__('Password')}}" >
+                            <input type="password" class="form-control" name="password" placeholder="{{__('Password')}}" >
                         </div>
 
                         <div class="form-group">
                             <label for="exampleInputPassword1">{{__('Confirm Password')}}</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1" name="password_confirmation" placeholder="{{__('Confirm Password')}}">
+                            <input type="password" class="form-control" name="password_confirmation" placeholder="{{__('Confirm Password')}}">
                         </div>
 
 

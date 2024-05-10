@@ -25,7 +25,7 @@
                 <!-- /.card-header -->
                 <!-- form start -->
                 @include('partials._errors')
-                <form action="{{route('dashboard.users.update', $user->id)}}" method="POST">
+                <form action="{{route('dashboard.users.update', $user->id)}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     {{@method_field('put')}}
                     <div class="box-body">
@@ -37,6 +37,15 @@
                         <div class="form-group">
                             <label for="exampleInputEmail1">{{__('Last Name')}}</label>
                             <input type="text" class="form-control" id="exampleInputEmail1" name="last_name" placeholder="{{__('Last Name')}}" value="{{$user->last_name}}">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">{{__('Image')}}</label>
+                            <input type="file" class="form-control image" id="image" name="image" placeholder="{{__('Image')}}">
+                        </div>
+
+                        <div class="form-group">
+                            <img src="{{$user->image_path}}" alt="not found" style="width: 100px" class="img-thumbnail image-preview">
                         </div>
 
                         <div class="form-group">
