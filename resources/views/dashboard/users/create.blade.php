@@ -70,12 +70,12 @@
                                 <div class="card-header p-0 border-bottom-0">
                                     <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
                                         @php
-                                            $models = ['users', 'category', 'products'];
+                                            $models = ['users', 'categories', 'products'];
                                             $maps = ['create', 'read', 'update', 'delete'];
                                             $icons = [
                                                 'users' => 'fa-users',
                                                 'products' => 'fa-shopping-basket',
-                                                'category' => 'fa-list',
+                                                'categories' => 'fa-list',
                                             ];
                                         @endphp
                                         @foreach($models as $index => $model)

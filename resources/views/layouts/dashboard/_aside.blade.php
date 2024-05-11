@@ -19,14 +19,13 @@
 
         <ul class="sidebar-menu" data-widget="tree">
             <li><a href="{{ route('dashboard.index') }}"><i class="fa fa-th"></i><span>{{ __('Dashboard') }}</span></a></li>
-            {{--@if(isset($user))
-                @if (auth()->user()->hasPermission('users_read'))--}}
-                    <li><a href="{{ route('dashboard.users.index') }}"><i class="fa fa-users"></i><span>{{ __('Users') }}</span></a></li>
-            {{-- @endif
-        @endif--}}
-                {{--@if (auth()->users()->hasPermission('read_categories'))
-                    <li><a href="{{ route('dashboard.categories.index') }}"><i class="fa fa-th"></i><span>@lang('site.categories')</span></a></li>
-                @endif--}}
+
+            @if (auth()->user()->hasPermission('users_read'))
+                <li><a href="{{ route('dashboard.users.index') }}"><i class="fa fa-users"></i><span>{{ __('Users') }}</span></a></li>
+            @endif
+            @if (auth()->user()->hasPermission('categories_read'))
+                <li><a href="{{ route('dashboard.categories.index') }}"><i class="fa fa-list"></i><span>{{ __('Categories') }}</span></a></li>
+            @endif
 
             {{--@if (auth()->users()->hasPermission('read_products'))
                 <li><a href="{{ route('dashboard.products.index') }}"><i class="fa fa-th"></i><span>@lang('site.products')</span></a></li>
