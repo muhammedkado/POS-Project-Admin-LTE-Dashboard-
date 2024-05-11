@@ -33,6 +33,7 @@
                             <label for="exampleInputEmail1">{{__('Name')}}</label>
                             <input type="text" class="form-control" name="name" placeholder="{{__('Name')}}">
                         </div>
+                    </div>
 
                     <div class="box-footer">
                         <button type="submit" class="btn btn-primary">{{__('Add')}}</button>

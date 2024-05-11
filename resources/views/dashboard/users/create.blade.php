@@ -109,8 +109,8 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
+                    </div>
                     <div class="box-footer">
                         <button type="submit" class="btn btn-primary">{{__('Add')}}</button>
                     </div>

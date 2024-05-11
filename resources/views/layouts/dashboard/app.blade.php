@@ -10,6 +10,10 @@
     <link rel="stylesheet" href="{{ asset('dashboard_files/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('dashboard_files/css/ionicons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('dashboard_files/css/skin-blue.min.css') }}">
+    {{--<link rel="stylesheet" href="../../plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="../../plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">--}}
+    <link rel="stylesheet" href="{{ asset('dashboard_files/css/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('dashboard_files/css/select2-bootstrap4.min.css') }}">
 
     @if (app()->getLocale() === 'ar')
         <link rel="stylesheet" href="{{ asset('dashboard_files/css/font-awesome-rtl.min.css') }}">
@@ -219,9 +223,11 @@
 
 {{--<!-- Bootstrap 3.3.7 -->--}}
 <script src="{{ asset('dashboard_files/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('dashboard_files/css/select2/js/select2.js') }}"></script>
 
 {{--icheck--}}
 <script src="{{ asset('dashboard_files/plugins/icheck/icheck.min.js') }}"></script>
+<script src="{{ asset('dashboard_files/plugins/ckeditor/ckeditor.js') }}"></script>
 
 {{--<!-- FastClick -->--}}
 <script src="{{ asset('dashboard_files/js/fastclick.js') }}"></script>
@@ -234,6 +240,8 @@
     $(document).ready(function () {
         $('.sidebar-menu').tree();
 
+        //Initialize Select2 Elements
+        $('.select2').select2()
         //icheck
         $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
             checkboxClass: 'icheckbox_minimal-blue',
@@ -241,11 +249,8 @@
         });
 
         $('.delete').click(function (e) {
-
             var that = $(this)
-
             e.preventDefault();
-
             var n = new Noty({
                 text: "{{__('Confirm Delete')}}",
                 type: "warning",
@@ -265,6 +270,7 @@
 
         });//end of delete
 
+
         $('.image').change(function () {
             if (this.files && this.files[0]) {
                 var reader = new FileReader();
@@ -274,6 +280,8 @@
                 reader.readAsDataURL(this.files[0]);
             }
         })
+
+        CKEDITOR.config.language = "{{app()->getLocale()}}";
     })
 </script>
 </body>

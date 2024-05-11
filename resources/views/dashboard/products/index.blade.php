@@ -6,27 +6,27 @@
 
         <section class="content-header">
 
-            <h1>{{ __('Categories') }}</h1>
+            <h1>{{ __('Products') }}</h1>
             <ol class="breadcrumb">
                 <li><a href="{{route('dashboard.index')}}"><i class="fa fa-dashboard"></i> {{ __('Dashboard') }}</a>
                 </li>
-                <li class="active"> {{ __('Categories') }}</li>
+                <li class="active"> {{ __('Products') }}</li>
             </ol>
         </section>
 
         <section class="content">
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title" style="margin-bottom: 15px">{{__('Categories')}}</h3>
-                        <form action="{{route('dashboard.categories.index')}}" method="get">
+                        <h3 class="box-title" style="margin-bottom: 15px">{{__('Products')}}</h3>
+                        <form action="{{route('dashboard.products.index')}}" method="get">
                             <div class="row">
                                 <div class="col-md-4">
                                     <input type="text" name="search" class="form-control" placeholder="{{__('Search')}}">
                                 </div>
                                 <div class="col-md-4">
                                     <button type="submit" class="btn btn-primary"><li class="fa fa-search mr-2"></li>{{__('Search')}}</button>
-                                    @if(auth()->user()->hasPermission('categories_create'))
-                                        <a href="{{route('dashboard.categories.create')}}" class="btn btn-primary "><li class="fa fa-plus mr-2"> </li>{{__('Add')}}</a>
+                                    @if(auth()->user()->hasPermission('products_create'))
+                                        <a href="{{route('dashboard.products.create')}}" class="btn btn-primary "><li class="fa fa-plus mr-2"> </li>{{__('Add')}}</a>
                                     @else
                                         <a href="#" class="btn btn-primary disabled"><li class="fa fa-plus mr-2"> </li>{{__('Add')}}</a>
                                     @endif
@@ -40,24 +40,38 @@
                             <tr>
                                 <th>#</th>
                                 <th>{{__('Name')}}</th>
+                                <th>{{__('Description')}}</th>
+                                <th>{{__('Category')}}</th>
+                                <th>{{__('Image')}}</th>
+                                <th>{{__('Purchasing Price')}}</th>
+                                <th>{{__('Selling Price')}}</th>
+                                <th>{{__('Profit Percent')}} %</th>
+                                <th>{{__('Stock')}}</th>
                                 <th>{{__('Action')}}</th>
                             </tr>
                             </thead>
-                            @if($categories->count() > 0)
+                            @if($products->count() > 0)
                             <tbody>
-                            @foreach($categories as $index => $category)
+                            @foreach($products as $index => $product)
                                 <tr>
                                     <td>{{$index +1}}</td>
-                                    <td>{{$category->name}}</td>
+                                    <td>{{$product->name}}</td>
+                                    <td>{!! $product->description !!}</td>
+                                    <td>{{$product->category->name}}</td>
+                                    <td><img src="{{$product->image_path}}" alt="not found" style="max-width: 100px; max-height: 100px" class="img-thumbnail"></td>
+                                    <td>{{$product->purchasing_price}}</td>
+                                    <td>{{$product->selling_price}}</td>
+                                    <td>{{$product->profit_percent}} %</td>
+                                    <td>{{$product->stock}}</td>
                                     <td>
-                                        @if(auth()->user()->hasPermission('categories_update'))
-                                            <a href="{{ route('dashboard.categories.edit', ['category' => $category->id]) }}" class="btn btn-info btn-sm"><li class="fa fa-edit mr-2"> </li>{{ __('Edit') }}</a>
+                                        @if(auth()->user()->hasPermission('products_update'))
+                                            <a href="{{ route('dashboard.products.edit', ['product' => $product->id]) }}" class="btn btn-info btn-sm"><li class="fa fa-edit mr-2"> </li>{{ __('Edit') }}</a>
                                         @else
                                             <a href="#" class="btn btn-info btn-sm disabled"><li class="fa fa-edit mr-2"> </li>{{ __('Edit') }}</a>
                                        @endif
 
-                                        @if(auth()->user()->hasPermission('categories_delete'))
-                                            <form action="{{ route('dashboard.categories.destroy', ['category' => $category->id]) }}" method="post" style="display: inline-block">
+                                        @if(auth()->user()->hasPermission('products_delete'))
+                                            <form action="{{ route('dashboard.products.destroy', ['product' => $product->id]) }}" method="post" style="display: inline-block">
                                                 @csrf
                                                 {{method_field('delete')}}
                                                 <button type="submit" class="btn btn-danger btn-sm delete"><li class="fa fa-trash mr-2"> </li>{{__('Delete')}}</button>
@@ -70,11 +84,12 @@
                             @endforeach
                             @else
                                 <tr>
-                                    <td colspan="3" class="text-center">{{__('No Data Found')}}</td>
+                                    <td colspan="8" class="text-center">{{__('No Data Found')}}</td>
                                 </tr>
                             @endif
                             </tbody>
                         </table>
+                        {{$products->appends(request()->query())->links()}}
                     </div>
                 </div>
 
