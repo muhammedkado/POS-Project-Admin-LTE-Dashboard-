@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\dashboard\CategoryController;
+use App\Http\Controllers\Dashboard\ClientController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\UserController;
 use Illuminate\Support\Facades\Route;
@@ -16,9 +17,13 @@ Route::group(
 
         Route::get('/index', [DashboardController::class, 'index'])->name('index');
 
-
+        //category routes
         Route::resource('categories', CategoryController::class)->except('show');
+        //products routes
         Route::resource('products', ProductController::class)->except('show');
+        //clients routes
+        Route::resource('clients', ClientController::class)->except('show');
+        //users routes
         Route::resource('users', UserController::class)->except('show');
 
     });

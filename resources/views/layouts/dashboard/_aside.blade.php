@@ -28,6 +28,10 @@
                 <li><a href="{{ route('dashboard.products.index') }}"><i class="fa fa-shopping-basket"></i><span>{{ __('Products') }}</span></a></li>
             @endif
 
+            @if (auth()->user()->hasPermission('clients_read'))
+                <li><a href="{{ route('dashboard.clients.index') }}"><i class="fa fa-handshake-o"></i><span>{{ __('Clients') }}</span></a></li>
+            @endif
+
             @if (auth()->user()->hasPermission('users_read'))
                 <li><a href="{{ route('dashboard.users.index') }}"><i class="fa fa-users"></i><span>{{ __('Users') }}</span></a></li>
             @endif
