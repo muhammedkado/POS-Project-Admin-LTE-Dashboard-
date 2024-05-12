@@ -51,7 +51,7 @@
 
                         <div class="form-group">
                             <label for="image">{{__('Image')}}</label>
-                            <input type="file" class="form-control" id="image" name="image" placeholder="{{__('Image')}}">
+                            <input type="file" class="form-control image" id="image" name="image" placeholder="{{__('Image')}}">
                         </div>
 
                         <div class="form-group">

@@ -20,10 +20,19 @@
                         <h3 class="box-title" style="margin-bottom: 15px">{{__('Products')}}</h3>
                         <form action="{{route('dashboard.products.index')}}" method="get">
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <input type="text" name="search" class="form-control" placeholder="{{__('Search')}}">
                                 </div>
-                                <div class="col-md-4">
+                                <div class="form-group col-md-3">
+                                    {{--<label>{{__('Categories')}}</label>--}}
+                                    <select class="form-control select2" name="category_id" style="width: 100%;">
+                                        <option value="" selected>{{__('All Category')}}</option>
+                                        @foreach($categories as $category)
+                                            <option value="{{$category->id}}" {{ request()->category_id == $category->id ? 'selected' : ''}}>{{$category->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
                                     <button type="submit" class="btn btn-primary"><li class="fa fa-search mr-2"></li>{{__('Search')}}</button>
                                     @if(auth()->user()->hasPermission('products_create'))
                                         <a href="{{route('dashboard.products.create')}}" class="btn btn-primary "><li class="fa fa-plus mr-2"> </li>{{__('Add')}}</a>
@@ -31,6 +40,7 @@
                                         <a href="#" class="btn btn-primary disabled"><li class="fa fa-plus mr-2"> </li>{{__('Add')}}</a>
                                     @endif
                                 </div>
+
                             </div>
                         </form>
                     </div>
