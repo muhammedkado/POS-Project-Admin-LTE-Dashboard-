@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -15,14 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-/*Route::get('/', function() {
-   return view('dashboard.index');
-});*/
-Auth::routes(['register'=>false]);
+Auth::routes(['register' => false, 'reset' => false]);
 
 Route::get('/', function () {
-    return view('dashboard.index');
-})->middleware('auth');
-
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+    return redirect('/dashboard/index');
+});

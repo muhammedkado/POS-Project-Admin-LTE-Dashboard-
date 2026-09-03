@@ -13,7 +13,7 @@ Route::group(
         'prefix' => LaravelLocalization::setLocale(),
         'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
     ], function () {
-    Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.', 'middleware' =>['auth']], function () {
+    Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.', 'middleware' => ['auth']], function () {
 
         Route::get('/index', [DashboardController::class, 'index'])->name('index');
 
@@ -25,6 +25,5 @@ Route::group(
         Route::resource('clients', ClientController::class)->except('show');
         //users routes
         Route::resource('users', UserController::class)->except('show');
-
     });
 });

@@ -17,3 +17,9 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+
+# Demo uploads: keep the shipped defaults, ignore anything visitors add
+/public/uploads/product_images/*
+!/public/uploads/product_images/default.jpg
+/public/uploads/user_images/*
+!/public/uploads/user_images/default.png

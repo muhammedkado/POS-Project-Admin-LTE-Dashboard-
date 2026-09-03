@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 2 | Blank Page</title>
+    <title>{{ config('app.name') }} &middot; @yield('title', __('Dashboard'))</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
     {{--<!-- Bootstrap 3.3.7 -->--}}
@@ -61,10 +61,9 @@
     <header class="main-header">
 
         {{--<!-- Logo -->--}}
-        <a href="{{ asset('dashboard_files') }}/index2.html" class="logo">
-            {{--<!-- mini logo for sidebar mini 50x50 pixels -->--}}
-            <span class="logo-mini"><b>A</b>LT</span>
-            <span class="logo-lg"><b>Admin</b>LTE</span>
+        <a href="{{ route('dashboard.index') }}" class="logo">
+            <span class="logo-mini"><b>K</b>P</span>
+            <span class="logo-lg"><b>Kado</b> POS</span>
         </a>
 
         <nav class="navbar navbar-static-top">
@@ -79,84 +78,21 @@
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
 
-                    <!-- Messages: style can be found in dropdown.less-->
-                    <li class="dropdown messages-menu">
+                    {{-- Language switcher --}}
+                    <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-envelope-o"></i>
-                            <span class="label label-success">4</span>
+                            <i class="fa fa-globe"></i> {{ strtoupper(app()->getLocale()) }} <span class="caret"></span>
                         </a>
-                        <ul class="dropdown-menu">
-                            <li class="header">You have 4 messages</li>
-                            <li>
-                                <!-- inner menu: contains the actual data -->
-                                <ul class="menu">
-                                    <li><!-- start message -->
-                                        <a href="#">
-                                            <div class="pull-left">
-                                                <img src="{{ asset('dashboard_files/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
-                                            </div>
-                                            <h4>
-                                                Support Team
-                                                <small>
-                                                    <i class="fa fa-clock-o"></i> 5 mins
-                                                </small>
-                                            </h4>
-                                            <p>Why not buy a new awesome theme?</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="footer">
-                                <a href="#">See All Messages</a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    {{--<!-- Notifications: style can be found in dropdown.less -->--}}
-                    <li class="dropdown notifications-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-bell-o"></i>
-                            <span class="label label-warning">10</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li class="header">You have 10 notifications</li>
-                            <li>
-                                {{--<!-- inner menu: contains the actual data -->--}}
-                                <ul class="menu">
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="footer">
-                                <a href="#">View all</a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    {{--<!-- Tasks: style can be found in dropdown.less -->--}}
-                    <li class="dropdown tasks-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-flag-o"></i></a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                {{--<!-- inner menu: contains the actual data -->--}}
-                                <ul class="menu">
-
-                                    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                                        <li>
-                                        <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                        <ul class="dropdown-menu" role="menu">
+                            @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                <li>
+                                    <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
                                         {{ $properties['native'] }}
-                                        </a>
-                                        </li>
-                                    @endforeach
-
-                                </ul>
-                            </li>
+                                    </a>
+                                </li>
+                            @endforeach
                         </ul>
                     </li>
-
                     {{--<!-- User Account: style can be found in dropdown.less -->--}}
                     <li class="dropdown user user-menu">
 
@@ -180,7 +116,7 @@
                                     <br>
                                     {{ auth()->user()->email }}
                                     @endif
-                                    <small>Member since 2 days</small>
+                                    <small>{{ __('Member since') }} {{ auth()->user()->created_at?->diffForHumans() }}</small>
                                 </p>
                             </li>
 
@@ -212,11 +148,9 @@
 
     <footer class="main-footer">
         <div class="pull-right hidden-xs">
-            <b>Version</b> 2.4.0
+            <a href="https://github.com/muhammedkado/POS-Project-Admin-LTE-Dashboard-" target="_blank" rel="noopener">{{ __('View source') }}</a>
         </div>
-        <strong>Copyright &copy; 2014-2016
-            <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights
-        reserved.
+        <strong>{{ config('app.name') }} &copy; {{ date('Y') }}</strong> &mdash; {{ __('built by Muhammed Kado') }}
     </footer>
 
 </div><!-- end of wrapper -->

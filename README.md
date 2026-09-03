@@ -1,58 +1,39 @@
-# Laravel POS System with Admin LTE Dashboard
+# Kado POS — Admin Dashboard
 
-A robust Point of Sale (POS) system built with Laravel and featuring Admin LTE Dashboard integration.
+A Point of Sale back-office built with Laravel 10 and an AdminLTE 2 dashboard: products, categories, clients and role-based user management (Laratrust), with English/Arabic (RTL) support.
 
-## Features
+## Live demo
 
-- User Authentication and Authorization
-- Role-based Access Control
-- Product Management
-- Category Management  
-- Client Management
-- Multilingual Support
-- Responsive Admin Dashboard
-- Image Upload Capabilities
+**https://pos.mkado.dev**
 
-## Tech Stack
+| Role | Email | Password |
+|---|---|---|
+| Super Admin | `superadmin@app.com` | `password` |
+| Admin | `admin@app.com` | `password` |
+| Viewer | `user@app.com` | `password` |
 
-- Laravel Framework
-- MySQL Database
-- Admin LTE 2.0 Dashboard Template
-- Bootstrap CSS Framework
-- jQuery
+Registration is disabled — sign in with one of the accounts above. These three accounts are protected: they can't be edited or deleted by any visitor. All other demo data resets every night at 03:00 UTC (`deploy/reseed.sh`), so feel free to add, edit or delete products/categories/clients/other users.
 
-## Requirements
+## Tech stack
 
-- PHP >= 7.4
-- MySQL >= 5.7
-- Composer
-- Node.js & NPM
+- Laravel 10, PHP 8.1+
+- MySQL
+- Laratrust (roles & permissions)
+- mcamara/laravel-localization (English / Arabic, RTL)
+- AdminLTE 2 (vendored static assets, no frontend build step required)
 
-## Installation
+## Local setup
 
-1. Clone the repository
 ```sh
 git clone https://github.com/muhammedkado/POS-Project-Admin-LTE-Dashboard-.git
-cd pos-project
-```
-
-2. Install PHP dependencies
-```sh
+cd POS-Project-Admin-LTE-Dashboard-
 composer install
-```
-
-3. Install frontend dependencies 
-```sh
-npm install
-```
-
-4. Create and setup .env file
-```sh
 cp .env.example .env
 php artisan key:generate
 ```
 
-5. Configure your database in .env file
+Configure your database in `.env`:
+
 ```
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
@@ -62,57 +43,30 @@ DB_USERNAME=your_username
 DB_PASSWORD=your_password
 ```
 
-6. Run migrations and seeders
+Run migrations and seed demo data (creates the three accounts above, 10 categories, 50 products, 30 clients):
+
 ```sh
 php artisan migrate --seed
-```
-
-7. Create storage link
-```sh
-php artisan storage:link
-```
-
-8. Start the development server
-```sh
 php artisan serve
 ```
 
-## Project Structure
+Product/user image uploads are written directly to `public/uploads/` — no `storage:link` needed.
 
-- `app/` - Contains core application code
-- `config/` - All configuration files
-- `database/` - Database migrations and seeders
-- `public/` - Publicly accessible files
-- `resources/` - Views, raw assets etc.
-- `routes/` - All route definitions
-- `storage/` - Application storage
+## Project structure
 
-## Features Details
+- `app/` — application code (controllers, models, middleware)
+- `config/` — configuration files, including `demo.php` (protected demo accounts)
+- `database/` — migrations, seeders and factories
+- `public/dashboard_files/` — vendored AdminLTE 2 assets
+- `resources/views/` — Blade views
+- `routes/` — route definitions (`web.php`, `dashboard/web.php`)
+- `deploy/` — nginx config, PHP-FPM pool, deploy and nightly reseed scripts
 
-### User Management
-- Create/Edit/Delete users
-- Assign roles and permissions
-- Upload user avatars
+## Features
 
-### Product Management
-- Add/Edit/Delete products
-- Assign categories
-- Set pricing and stock levels
-- Upload product images
+- **Users** — create/edit/delete, assign roles and permissions, upload avatars
+- **Products** — CRUD, category assignment, pricing and stock, image upload
+- **Categories** — CRUD, product counts
+- **Clients** — CRUD, multiple phone numbers, addresses
+- **Dashboard** — live counts, inventory value, low-stock list, latest products, products-per-category breakdown
 
-### Category Management
-- Create/Edit/Delete categories
-- View products by category
-- Track product counts
-
-### Client Management
-- Add/Edit/Delete clients
-- Store multiple phone numbers
-- Track client addresses
-
-## Contributing
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.

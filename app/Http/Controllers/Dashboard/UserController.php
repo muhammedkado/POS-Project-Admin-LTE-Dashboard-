@@ -17,6 +17,7 @@ class UserController extends Controller
         $this->middleware('permission:users_create')->only(['create', 'store']);
         $this->middleware('permission:users_update')->only(['edit', 'update']);
         $this->middleware('permission:users_delete')->only(['destroy']);
+        $this->middleware('protect.demo')->only(['update', 'destroy']);
     }
 
     public function index(Request $request)
