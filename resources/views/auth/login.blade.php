@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Sign in')
+@section('title', __('Sign in'))
 
 @section('content')
     <p class="login-box-msg">{{ __('Sign in to start your session') }}</p>

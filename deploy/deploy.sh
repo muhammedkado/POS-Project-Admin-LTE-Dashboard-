@@ -13,7 +13,11 @@ fi
 
 php artisan migrate --force
 php artisan config:cache
-php artisan route:cache
+# NOT route:cache — mcamara/laravel-localization builds the locale prefix per
+# request via LaravelLocalization::setLocale(). A cached route table freezes
+# whatever locale was active when it was built (the default, unprefixed), and
+# every /ar/... URL the language switcher produces then 404s.
+php artisan route:clear
 php artisan view:cache
 
 sudo systemctl reload php8.3-fpm

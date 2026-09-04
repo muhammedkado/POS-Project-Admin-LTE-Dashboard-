@@ -1,5 +1,7 @@
 <?php
 
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -14,8 +16,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Auth::routes(['register' => false, 'reset' => false]);
+// The auth routes live inside the locale group as well, otherwise the language
+// switcher links to /ar/login and gets a 404 — and a session that expires while
+// browsing in Arabic drops the visitor onto the English login page.
+Route::group(
+    [
+        'prefix' => LaravelLocalization::setLocale(),
+        'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath'],
+    ],
+    function () {
+        Auth::routes(['register' => false, 'reset' => false]);
 
-Route::get('/', function () {
-    return redirect('/dashboard/index');
-});
+        Route::get('/', function () {
+            return redirect()->route('dashboard.index');
+        });
+    }
+);
