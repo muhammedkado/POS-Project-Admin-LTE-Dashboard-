@@ -27,8 +27,24 @@ Route::group(
     function () {
         Auth::routes(['register' => false, 'reset' => false]);
 
+        // One-click demo sign-in for the portfolio (mkado.dev): allow-listed
+        // accounts only, see config/demo.php.
+        Route::get('demo/{as?}', \App\Http\Controllers\Auth\DemoLoginController::class)
+            ->where('as', '[a-z]+')->middleware('throttle:10,1')->name('demo.login');
+
         Route::get('/', function () {
             return redirect()->route('dashboard.index');
         });
     }
 );
+
+// Uptime probe for the portfolio's status board (mkado.dev/status.json) and
+// external monitors: a real DB round-trip, nothing about versions/environment.
+Route::get('/health', function () {
+    try {
+        \Illuminate\Support\Facades\DB::select('select 1');
+        return response()->json(['status' => 'ok'])->header('Cache-Control', 'no-store');
+    } catch (\Throwable $e) {
+        return response()->json(['status' => 'down'], 503)->header('Cache-Control', 'no-store');
+    }
+});
