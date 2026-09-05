@@ -1,6 +1,6 @@
 # Kado POS — Admin Dashboard
 
-A Point of Sale back-office built with Laravel 10 and an AdminLTE 2 dashboard: products, categories, clients and role-based user management (Laratrust), with English/Arabic (RTL) support.
+A Point of Sale back-office built with Laravel 12 and an AdminLTE 2 dashboard: products, categories, clients and role-based user management (Laratrust), with English/Arabic (RTL) support.
 
 ## Live demo
 
@@ -16,7 +16,7 @@ Registration is disabled — sign in with one of the accounts above. These three
 
 ## Tech stack
 
-- Laravel 10, PHP 8.1+
+- Laravel 12, PHP 8.1+
 - MySQL
 - Laratrust (roles & permissions)
 - mcamara/laravel-localization (English / Arabic, RTL)
